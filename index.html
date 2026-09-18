@@ -209,6 +209,81 @@
     word-break: break-word;
   }
   .contact-card a:hover { text-decoration: underline; }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 700px) {
+    .contact-layout { grid-template-columns: 1fr; }
+  }
+  .contact-form {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .contact-form label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+  }
+  .contact-form input, .contact-form textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem;
+    margin-top: 4px;
+    resize: vertical;
+  }
+  .contact-form input:focus, .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--skill-purple);
+  }
+  .contact-form textarea { min-height: 100px; }
+  .contact-form button {
+    margin-top: 16px;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--grad-a), var(--grad-b), var(--grad-c));
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  .contact-form button:hover { opacity: 0.88; }
+
+  /* THEME TOGGLE */
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 50;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    color: var(--text);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .theme-toggle:hover { transform: scale(1.08); border-color: var(--skill-purple); }
   .hero p.role {
     color: var(--accent-amber);
     font-family: 'IBM Plex Mono', monospace;
@@ -357,16 +432,113 @@
     gap: 10px;
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .hero h1 { animation: rise 0.6s ease-out; }
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* HOVER GLOW for interactive cards */
+  .skill-card, .contact-card, .stat-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .skill-card:hover, .contact-card:hover, .stat-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--card-accent, var(--skill-blue));
+    box-shadow: 0 8px 24px -8px var(--card-accent, var(--skill-blue));
+  }
+  .project { transition: background 0.25s ease; }
+  .project:hover { background: rgba(255,255,255,0.015); }
+
+  /* TYPING CURSOR */
+  .type-cursor {
+    display: inline-block;
+    width: 2px;
+    background: var(--accent-amber);
+    margin-left: 2px;
+    animation: blink 0.9s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* GITHUB STATS */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 18px;
+  }
+  .stat-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--grad-a), var(--grad-b), var(--grad-c));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .stat-card .lbl {
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    margin-top: 6px;
+  }
+  .repo-list {
+    margin-top: 22px;
+    display: grid;
+    gap: 10px;
+  }
+  .repo-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+  .repo-row:hover { border-color: var(--skill-purple); }
+  .repo-row .repo-lang {
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+  }
+  .stats-note {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-top: 16px;
+  }
+  .contrib-wrap {
+    margin-top: 22px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+  }
+  .contrib-graph {
+    display: block;
+    max-width: 100%;
+    height: auto;
   }
 </style>
 </head>
 <body>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
 <div class="wrap">
 
   <div class="hero">
@@ -387,7 +559,7 @@
     </div>
   </div>
 
-  <section id="skills">
+  <section id="skills" class="reveal">
     <div class="sec-head">
       <h2>Skills & Technologies</h2>
       <span class="count">04</span>
@@ -412,7 +584,7 @@
     </div>
   </section>
 
-  <section id="projects">
+  <section id="projects" class="reveal">
     <div class="sec-head">
       <h2>Projects</h2>
       <span class="count">02</span>
@@ -444,7 +616,7 @@
     </div>
   </section>
 
-  <section id="experience">
+  <section id="experience" class="reveal">
     <div class="sec-head">
       <h2>Experience</h2>
       <span class="count">03</span>
@@ -474,28 +646,61 @@
     </div>
   </section>
 
-  <div class="motto">
+  <div class="motto reveal">
     <p>Focus on what you can control — don't let the uncontrollable control you.</p>
   </div>
 
-  <section id="contact">
+  <section id="github-activity" class="reveal">
+    <div class="sec-head">
+      <h2>GitHub Activity</h2>
+      <span class="count">live</span>
+    </div>
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card"><div class="num" id="statRepos">–</div><div class="lbl">Public Repos</div></div>
+      <div class="stat-card"><div class="num" id="statFollowers">–</div><div class="lbl">Followers</div></div>
+      <div class="stat-card"><div class="num" id="statFollowing">–</div><div class="lbl">Following</div></div>
+      <div class="stat-card"><div class="num" id="statGists">–</div><div class="lbl">Gists</div></div>
+    </div>
+    <div class="repo-list" id="repoList"></div>
+    <div class="contrib-wrap">
+      <img class="contrib-graph" src="https://ghchart.rshah.org/5B8CFF/Hardiktulsyan" alt="Hardiktulsyan's GitHub contribution graph" loading="lazy">
+    </div>
+    <div class="stats-note" id="statsNote">Fetching live data from GitHub…</div>
+  </section>
+
+  <section id="contact" class="reveal">
     <div class="contact-banner">Your Ideas, Our Inbox — Drop Us a Line!</div>
-    <div class="contact-grid">
-      <div class="contact-card" style="--card-accent: var(--skill-blue)">
-        <div class="label">Email</div>
-        <a href="mailto:tulsianhardik@gmail.com">tulsianhardik@gmail.com</a>
-      </div>
-      <div class="contact-card" style="--card-accent: var(--skill-purple)">
-        <div class="label">Phone</div>
-        <span class="value">+91 9140218208</span>
-      </div>
-      <div class="contact-card" style="--card-accent: var(--skill-pink)">
-        <div class="label">LinkedIn</div>
-        <a href="https://www.linkedin.com/in/hardik-tulsyan-9633673b4" target="_blank" rel="noopener">Hardik Tulsyan</a>
-      </div>
-      <div class="contact-card" style="--card-accent: var(--skill-teal)">
-        <div class="label">GitHub</div>
-        <a href="https://github.com/Hardiktulsyan" target="_blank" rel="noopener">Hardiktulsyan</a>
+    <div class="contact-layout">
+      <form class="contact-form" action="https://formsubmit.co/tulsianhardik@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New message from your portfolio site">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_next" value="https://hardiktulsyan.github.io/Portfolio/">
+        <label>Your Name</label>
+        <input type="text" name="name" placeholder="John Doe" required>
+        <label>Your Email</label>
+        <input type="email" name="email" placeholder="john@example.com" required>
+        <label>Your Message</label>
+        <textarea name="message" placeholder="Write your message here..." required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <div class="contact-grid">
+        <div class="contact-card" style="--card-accent: var(--skill-blue)">
+          <div class="label">Email</div>
+          <a href="mailto:tulsianhardik@gmail.com">tulsianhardik@gmail.com</a>
+        </div>
+        <div class="contact-card" style="--card-accent: var(--skill-purple)">
+          <div class="label">Phone</div>
+          <span class="value">+91 9140218208</span>
+        </div>
+        <div class="contact-card" style="--card-accent: var(--skill-pink)">
+          <div class="label">LinkedIn</div>
+          <a href="https://www.linkedin.com/in/hardik-tulsyan-9633673b4" target="_blank" rel="noopener">Hardik Tulsyan</a>
+        </div>
+        <div class="contact-card" style="--card-accent: var(--skill-teal)">
+          <div class="label">GitHub</div>
+          <a href="https://github.com/Hardiktulsyan" target="_blank" rel="noopener">Hardiktulsyan</a>
+        </div>
       </div>
     </div>
   </section>
@@ -509,5 +714,91 @@
 
 
 
+<script>
+  // Theme toggle
+  const themeBtn = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    root.setAttribute('data-theme', savedTheme);
+    themeBtn.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+  }
+  themeBtn.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    themeBtn.textContent = next === 'light' ? '☀️' : '🌙';
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Typing effect on the role eyebrow
+  const roleEl = document.querySelector('.role');
+  if (roleEl) {
+    const fullText = roleEl.textContent;
+    roleEl.textContent = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'type-cursor';
+    cursor.textContent = '\u00A0';
+    let i = 0;
+    function typeNext() {
+      if (i < fullText.length) {
+        roleEl.textContent = fullText.slice(0, i + 1);
+        roleEl.appendChild(cursor);
+        i++;
+        setTimeout(typeNext, 45);
+      }
+    }
+    typeNext();
+  }
+
+  // Animated count-up
+  function animateCount(el, target, suffix = '') {
+    let cur = 0;
+    const step = Math.max(1, Math.ceil(target / 30));
+    const timer = setInterval(() => {
+      cur += step;
+      if (cur >= target) { cur = target; clearInterval(timer); }
+      el.textContent = cur + suffix;
+    }, 30);
+  }
+
+  // Live GitHub stats
+  const GH_USER = 'Hardiktulsyan';
+  fetch(`https://api.github.com/users/${GH_USER}`)
+    .then(r => { if (!r.ok) throw new Error('profile fetch failed'); return r.json(); })
+    .then(data => {
+      animateCount(document.getElementById('statRepos'), data.public_repos || 0);
+      animateCount(document.getElementById('statFollowers'), data.followers || 0);
+      animateCount(document.getElementById('statFollowing'), data.following || 0);
+      animateCount(document.getElementById('statGists'), data.public_gists || 0);
+      document.getElementById('statsNote').textContent = 'Live from github.com/' + GH_USER;
+    })
+    .catch(() => {
+      document.getElementById('statsNote').textContent = 'Could not load live GitHub data right now — check github.com/' + GH_USER + ' directly.';
+    });
+
+  fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=5`)
+    .then(r => { if (!r.ok) throw new Error('repos fetch failed'); return r.json(); })
+    .then(repos => {
+      const list = document.getElementById('repoList');
+      if (!Array.isArray(repos) || repos.length === 0) return;
+      repos.forEach(repo => {
+        const a = document.createElement('a');
+        a.className = 'repo-row';
+        a.href = repo.html_url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.innerHTML = `<span>${repo.name}</span><span class="repo-lang">${repo.language || '—'} · ★ ${repo.stargazers_count}</span>`;
+        list.appendChild(a);
+      });
+    })
+    .catch(() => {});
+</script>
 </body>
 </html>
