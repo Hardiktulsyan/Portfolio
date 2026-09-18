@@ -660,6 +660,7 @@
       <div class="stat-card"><div class="num" id="statFollowers">–</div><div class="lbl">Followers</div></div>
       <div class="stat-card"><div class="num" id="statFollowing">–</div><div class="lbl">Following</div></div>
       <div class="stat-card"><div class="num" id="statGists">–</div><div class="lbl">Gists</div></div>
+      <div class="stat-card"><div class="num" id="statVisitors">–</div><div class="lbl">Site Visitors</div></div>
     </div>
     <div class="repo-list" id="repoList"></div>
     <div class="contrib-wrap">
@@ -770,6 +771,17 @@
 
   // Live GitHub stats
   const GH_USER = 'Hardiktulsyan';
+
+  // Live visitor counter (CountAPI — free, no backend needed)
+  fetch('https://api.countapi.xyz/hit/hardiktulsyan-portfolio/visits')
+    .then(r => { if (!r.ok) throw new Error('counter fetch failed'); return r.json(); })
+    .then(data => {
+      animateCount(document.getElementById('statVisitors'), data.value || 0);
+    })
+    .catch(() => {
+      document.getElementById('statVisitors').textContent = '—';
+    });
+
   fetch(`https://api.github.com/users/${GH_USER}`)
     .then(r => { if (!r.ok) throw new Error('profile fetch failed'); return r.json(); })
     .then(data => {
