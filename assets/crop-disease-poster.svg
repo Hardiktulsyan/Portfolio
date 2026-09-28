@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111a32"/><stop offset=".5" stop-color="#4a3a91"/><stop offset="1" stop-color="#c94f88"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#9ee4d5" stop-opacity=".9"/><stop offset="1" stop-color="#9ee4d5" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <circle cx="920" cy="200" r="280" fill="url(#glow)" opacity=".55"/>
+  <circle cx="900" cy="190" r="120" fill="none" stroke="#fff" stroke-opacity=".72" stroke-width="3"/>
+  <path d="M900 70c80 55 120 160 58 257-34 52-90 83-152 75-75-10-107-74-75-133 25-45 84-52 119-20 34 31 32 82-2 111" fill="none" stroke="#fff" stroke-opacity=".82" stroke-width="10" stroke-linecap="round"/>
+  <text x="76" y="570" fill="#fff" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="5">CROP DISEASE DETECTION AI</text>
+  <text x="80" y="616" fill="#dfe4ff" font-family="monospace" font-size="18" letter-spacing="2">PYTHON  ·  COMPUTER VISION  ·  IMAGE CLASSIFICATION</text>
+</svg>
